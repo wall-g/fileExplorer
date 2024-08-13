@@ -6,7 +6,7 @@ import useTreeTraversal from './hooks/use-tree-traversal'
 
 const App = () => {
     const [fileTree, setFileTree] = useState(explorer);
-    const {insertNode, deleteNode} = useTreeTraversal();
+    const {insertNode, deleteNode, updateNode} = useTreeTraversal();
     const handleInsertNode = (parentId, name, isFolder) => {
         insertNode(parentId, name, fileTree, isFolder);
         setFileTree(fileTree);
@@ -15,9 +15,13 @@ const App = () => {
         const updatedTree  = deleteNode(id, fileTree, parentId);
         setFileTree(updatedTree);
     }
+    const handleUpdateNode = (id, name) => {
+        const updatedTree = updateNode(id, name, fileTree);
+        setFileTree(updatedTree);
+    }
 
     return (
-        <Folder fileTree={fileTree} handleInsertNode={handleInsertNode} handleDeleteNode={handleDeleteNode}/>
+        <Folder fileTree={fileTree} handleInsertNode={handleInsertNode} handleDeleteNode={handleDeleteNode} handleUpdateNode={handleUpdateNode}/>
     )
 }
 const root = ReactDom.createRoot(document.getElementById('root'));
